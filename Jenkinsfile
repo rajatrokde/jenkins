@@ -5,27 +5,32 @@ pipeline {
 
         stage('Clone Repo') {
             steps {
-                git url: 'https://github.com/rajatrokde/jenkins.git'
-
-
-                    
+                git branch: 'main', url: 'https://github.com/rajatrokde/jenkins.git'
             }
         }
 
-        stage('demo') {
+        stage('Build Docker Image') {
             steps {
-                sh """
-                docker build -t -p 80:80 nginx 
-                docker build -t -p 81:80 nginx
-                """
+                sh '''
+                docker build -t my-nginx .
+                '''
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                sh '''
+                docker run -d -p 80:80 --name nginx1 my-nginx
+                docker run -d -p 81:80 --name nginx2 my-nginx
+                '''
             }
         }
 
         stage('Deploy') {
             steps {
-                sh """
+                sh '''
                 sudo cp -r * /var/www/html/
-                """
+                '''
             }
         }
 
