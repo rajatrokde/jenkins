@@ -16,6 +16,7 @@ pipeline {
             steps {
                 sh """
                 docker build -t -p 80:80 nginx 
+                docker build -t -p 81:80 nginx
                 """
             }
         }
