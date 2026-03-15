@@ -3,7 +3,7 @@ pipeline {
 
     stages {
 
-        stage('Clone Repo') {
+        stage('Clone the repo') {
             steps {
                 git branch: 'main', url: 'https://github.com/rajatrokde/jenkins.git'
             }
