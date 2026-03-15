@@ -5,15 +5,17 @@ pipeline {
 
         stage('Clone Repo') {
             steps {
-                git url: 'https://github.com/YOUR_USERNAME/repo.git',
-                branch: "${BRANCH_NAME}"
+                git url: 'https://github.com/rajatrokde/jenkins.git'
+
+
+                    
             }
         }
 
-        stage('Inject Branch Name') {
+        stage('demo') {
             steps {
                 sh """
-                sed -i 's/BRANCH_NAME/${BRANCH_NAME}/g' script.js
+                docker build -t -p 80:80 nginx 
                 """
             }
         }
